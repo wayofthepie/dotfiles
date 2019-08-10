@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=XMonad Standalone
+Comment=Lightweight tiling window manager
+Exec=/home/chaospie/.local/bin/xmonad-init.sh
+Type=XSession

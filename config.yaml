@@ -1,0 +1,23 @@
+---
+neovim:
+    - src: neovim/init.vim
+      dst: ~/.config/nvim/
+xmonad:
+    - src: xmonad/xmonad.hs
+      dst: ~/.xmonad/xmonad.hs
+    - src: xmonad/xmonad-init.sh
+      dst: ~/.local/bin/
+    - src: xmonad/xmonad.desktop
+      dst: /usr/share/xsessions/myxmonad.desktop
+xmobar:
+    - src: xmobar/xmobarrc
+      dst: ~/.xmobarrc
+bash:
+    - src: bash/.bashrc
+      dst: ~/
+    - src: bash/.profile
+      dst: ~/
+    - src: bash/.fzf.bash
+      dst: ~/
+    - src: bash/.functions.sh
+      dst: ~/
