@@ -33,7 +33,7 @@ Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
-
+Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 " End Coc extensions
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -108,6 +108,10 @@ nnoremap <A-#> :call TermToggle(30)<CR>
 inoremap <A-#> <Esc>:call TermToggle(30)<CR>
 tnoremap <A-#> <C-\><C-n>:call TermToggle(30)<CR>
 
+" Hides terminal buffers from the tabline, doesnt disable them when cycling
+" though....
+autocmd TermOpen * set bufhidden=hide
+
 nnoremap <C-o> :Files<CR>
 
 " Terminal go back to normal mode
@@ -160,7 +164,14 @@ endfunction
 autocmd CursorHold * if ! coc#util#has_float() | call CocActionAsync('doHover') | endif 
 
 au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+
+" Show buffers in tabs
 let g:airline#extensions#tabline#enabled = 1
+
+" Don't show certain buffer types
+let g:airline#extensions#tabline#ignore_bufadd_pat =
+  \ 'bash|!'
+
 nmap <C-n> :bn<CR>  " Next buffer in list
 nmap <C-p> :bp<CR>  " Previous buffer in list
 nmap <C-j> :b#<CR>  " Previous buffer you were in
