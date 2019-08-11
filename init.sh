@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Temporary init script, might go back to nixos, hmmm...
 sudo apt install -y \
-	curl \
-	git \
-	automake cmake libtool libtool-bin m4 `# for neovim source compile` \
+    curl \
+    git \
+    automake cmake libtool libtool-bin m4 `# for neovim source compile` \
     compton `# helps with tearing when using xmonad, I think ...`\
-	libx11-dev `# for xmonad` \
+    libx11-dev `# for xmonad` \
     libxinerama-dev  `# for xmonad` \
     libxrandr-dev `# for xmonad` \
     xscreensaver `# for xmonad` \
@@ -38,17 +38,11 @@ stack install xmobar
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
  
-node_loc=/var/tmp/nodesetup
-curl -sL https://deb.nodesource.com/setup_12.x > ${node_loc}
-if [ "08067e98d5d523a033868a7779d601d687bdc2538fbc3a50c4d47ba1de2bae6f" != "`sha256sum ${node_loc} | awk '{print $1}'`" ]; then
-    echo "SHA256 for node installer does not match previous sha!"
-    exit 1
-fi
-sudo -E bash ${node_loc}
-sudo apt-get install -y nodejs
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+nvm install v11.15.0
 
-npm config set prefix ~/.npm-global
-
+# Does not support node 12 as of writing
+npm i -g bash-language-server
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt-get update && sudo apt-get install yarn
@@ -57,3 +51,5 @@ sudo apt-get update && sudo apt-get install yarn
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 rustup component add rls rust-analysis rust-src
 cargo install cargo-edit
+
+
