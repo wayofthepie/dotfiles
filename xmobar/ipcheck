@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-domain=ireland.privateinternetaccess.com
+domain=${1}
 last_seen_ip=/var/tmp/last_ip
 ips_cache=pia_ips_cache
 ips_cache_path=/var/tmp/pia_ips_cache

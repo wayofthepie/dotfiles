@@ -11,8 +11,9 @@ Config { font = "-*-Fixed-Bold-R-Normal-*-15-*-*-*-*-*-*-*"
                      , Run Com "uname" ["-s","-r"] "" 36000
                      , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                      , Run StdinReader
+                     , Run Com "ipcheck" ["ireland.privateinternetaccess.com"] "ipcheck" 100
                      ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%cpu% | %memory% * %swap% | %enp0s26u1u1u4u2% } %StdinReader%  {<fc=#ee9a00>%date%</fc> | %uname% "
+        , template = "%cpu% | %memory% * %swap% | %enp0s26u1u1u4u2% | %ipcheck% } %StdinReader%  {<fc=#ee9a00>%date%</fc> | %uname% "
         }
