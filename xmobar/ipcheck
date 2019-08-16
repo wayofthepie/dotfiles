@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+domain=ireland.privateinternetaccess.com
+last_seen_ip=/var/tmp/last_ip
+ips_cache=pia_ips_cache
+ips_cache_path=/var/tmp/pia_ips_cache
+
+##
+# Check if we have an ip cache older than an hour
+##
+last_cache=$(find /var/tmp/ -name ${ips_cache} -mmin -60 -print 2> /dev/null)
+
+if ! ip a | grep -q tun; then 
+    echo "<fc=#ff0000>WARNING: No tun device found, not connected to VPN!</fc>"
+    exit 0
+fi
+
+##
+# If the cache is older than an hour, retrieve it again
+##
+if [ ! -f "${last_cache}" ] || [ -z "${last_cache// }" ]; then
+    echo "Updating IP cache and current external IP ..."
+    curl -s ifconfig.co > ${last_seen_ip}
+    nslookup ${domain} | tail -n+3 | awk 'tolower($0) ~ /address/ {printf "%s" (ORS=FS), $2}' | tr ' ' '\n' > ${ips_cache_path} 
+fi
+
+if grep -q "$(cat ${last_seen_ip})" "${ips_cache_path}"; then
+    echo "<fc=#fce94f>Connected to VPN {$(cat ${last_seen_ip})}</fc>"
+else 
+    echo "<fc=#ff0000>WARNING: Not connected to VPN!</fc>"
+fi
