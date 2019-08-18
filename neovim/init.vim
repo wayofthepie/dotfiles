@@ -15,6 +15,8 @@ set number
 
 " Custom commands
 com! FormatJSON %!python -m json.tool
+set wildignore +=target/**,.git/**
+com! Todo :vimgrep /\<TODO\>/j **/*
 
 " Plugins
 call plug#begin('~/.vim/plugged')
@@ -34,6 +36,7 @@ Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-solargraph' 
 " End Coc extensions
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -43,6 +46,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'tpope/vim-fugitive'
+
+" For :Gbrowse (from vim-fugitive) to open github 
+Plug 'tpope/vim-rhubarb' 
 
 Plug 'leafgarland/typescript-vim'
 
