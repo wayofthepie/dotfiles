@@ -17,6 +17,7 @@ set number
 com! FormatJSON %!python -m json.tool
 set wildignore +=target/**,.git/**
 com! Todo :vimgrep /\<TODO\>/j **/*
+com! Commit !git commit
 
 " Plugins
 call plug#begin('~/.vim/plugged')
@@ -36,7 +37,7 @@ Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-solargraph' 
+Plug 'neoclide/coc-solargraph'
 " End Coc extensions
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -47,8 +48,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'tpope/vim-fugitive'
 
-" For :Gbrowse (from vim-fugitive) to open github 
-Plug 'tpope/vim-rhubarb' 
+" For :Gbrowse (from vim-fugitive) to open github
+Plug 'tpope/vim-rhubarb'
 
 Plug 'leafgarland/typescript-vim'
 
@@ -56,7 +57,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'joshdick/onedark.vim' " color scheme
 "Plug 'morhetz/gruvbox'
 
-Plug 'tpope/vim-surround' 
+Plug 'tpope/vim-surround'
 
 Plug 'meain/vim-package-info', { 'do': 'npm install' }
 
@@ -80,10 +81,10 @@ set statusline=%{FugitiveStatusline()}
 " Airline setup
 " requires manual install of https://github.com/powerline/fonts
 " and then setting a powerline font in settings
-let g:airline_powerline_fonts = 1 
+let g:airline_powerline_fonts = 1
 
 
-" Terminal setup 
+" Terminal setup
 " Terminal Function
 let g:term_buf = 0
 let g:term_win = 0
@@ -110,15 +111,15 @@ endfunction
 colorscheme onedark
 
 " Toggle terminal on/off (neovim)
-nnoremap <A-#> :call TermToggle(30)<CR>
-inoremap <A-#> <Esc>:call TermToggle(30)<CR>
-tnoremap <A-#> <C-\><C-n>:call TermToggle(30)<CR>
+nnoremap <C-l> :call TermToggle(30)<CR>
+inoremap <C-l> <Esc>:call TermToggle(30)<CR>
+tnoremap <C-l> <C-\><C-n>:call TermToggle(30)<CR>
 
 " Hides terminal buffers from the tabline, doesnt disable them when cycling
 " though....
 autocmd TermOpen * set bufhidden=hide
 
-nnoremap <C-o> :Files<CR>
+nnoremap <silent> <leader>f :Files<CR>
 
 " Terminal go back to normal mode
 tnoremap <Esc> <C-\><C-n>
@@ -158,7 +159,7 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
- 
+
 function! s:show_documentation()
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
@@ -167,7 +168,7 @@ function! s:show_documentation()
   endif
 endfunction
 
-autocmd CursorHold * if ! coc#util#has_float() | call CocActionAsync('doHover') | endif 
+autocmd CursorHold * if ! coc#util#has_float() | call CocActionAsync('doHover') | endif
 
 au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
@@ -191,3 +192,4 @@ nmap <silent> ,s :w<CR>
 
 nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
 nnoremap <expr><C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
+
